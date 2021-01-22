@@ -10,7 +10,7 @@ let link = axios.get('https://api.github.com/users/acarrill42')
 .catch(()=> {
   console.log('did not succeed');
 })
-console.log(link);
+// console.log(link);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -65,3 +65,48 @@ const followersArray = [];
     luishrd
     bigknell
 */
+let grab = document.querySelector('.cards');
+
+function gitCard(git) {
+  let card = document.createElement('div');
+  let img = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let name = document.createElement('h3');
+  let userName = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let address = document.createElement('a');
+  let follow = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+  card.classList.add('card');
+  img.src = ('https://avatars.githubusercontent.com/u/69913507?v=4');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  name.textContent = 'Austin Carrill';
+  userName.classList.add('username');
+  userName.textContent = git.login;
+  location.textContent = `Location ${git.location}`;
+  profile.textContent = 'Profile:'
+  address.href = ('https://github.com/ACarrill42');
+  follow.textContent = `Followers: ${git.followers}`;
+  following.textContent = `Following ${git.following}`;
+  bio.textContent = `Bio: ${git.bio}`;
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(follow);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  grab.appendChild(card);
+
+  return card;
+}
+console.log(gitCard(link));
