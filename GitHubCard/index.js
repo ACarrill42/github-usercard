@@ -3,13 +3,25 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-let link = axios.get('https://api.github.com/users/acarrill42')
-.then(()=> {
-  console.log('success');
+axios.get('https://api.github.com/users/ACarrill42')
+.then((res)=> {
+  console.log('success ' + res);
+  gitCard(res.data);
 })
-.catch(()=> {
+.catch((err)=> {
   console.log('did not succeed');
 })
+.finally(() => {
+  console.log('done');
+})
+
+// followersArray.forEach((follower) => {
+//   axios.get('https://api.github.com/users/' + follower)
+//   .then((res)=> {
+//     console.log(res);
+//     gitCard(res.data);
+//   })
+// })
 // console.log(link);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -35,8 +47,21 @@ let link = axios.get('https://api.github.com/users/acarrill42')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [    
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
+followersArray.forEach((follower) => {
+  axios.get('https://api.github.com/users/' + follower)
+  .then((res)=> {
+    console.log(res);
+    gitCard(res.data);
+  })
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -84,14 +109,14 @@ function gitCard(git) {
   img.src = ('https://avatars.githubusercontent.com/u/69913507?v=4');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
-  name.textContent = 'Austin Carrill';
+  name.textContent = git.name;
   userName.classList.add('username');
   userName.textContent = git.login;
   location.textContent = `Location ${git.location}`;
   profile.textContent = 'Profile:'
   address.href = ('https://github.com/ACarrill42');
   follow.textContent = `Followers: ${git.followers}`;
-  following.textContent = `Following ${git.following}`;
+  following.textContent = `Following: ${git.following}`;
   bio.textContent = `Bio: ${git.bio}`;
 
   card.appendChild(img);
@@ -109,4 +134,3 @@ function gitCard(git) {
 
   return card;
 }
-console.log(gitCard(link));
