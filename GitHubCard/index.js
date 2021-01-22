@@ -3,7 +3,14 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+let link = axios.get('https://api.github.com/users/acarrill42')
+.then(()=> {
+  console.log('success');
+})
+.catch(()=> {
+  console.log('did not succeed');
+})
+console.log(link);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
